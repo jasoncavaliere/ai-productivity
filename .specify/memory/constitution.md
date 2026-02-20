@@ -53,6 +53,7 @@ A task is complete only when:
 - Accessibility basics are satisfied
 - Performance is not degraded
 - Relevant documentation is updated
+- Test coverage is >75%
 
 ---
 
@@ -90,3 +91,10 @@ This site is:
 - A template others could fork
 
 Engineering rigor is part of the product.
+
+## 10. Testing Discipline
+
+- All business logic must have unit tests.
+- No task is considered complete without tests where applicable.
+- Tests must run in CI.
+- UI-only placeholders may defer tests, but service logic may not.
