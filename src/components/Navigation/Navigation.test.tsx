@@ -1,16 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 import { Navigation } from './Navigation'
 
 describe('Navigation Component', () => {
   const renderNavigation = () => {
-    render(
-      <BrowserRouter>
-        <Navigation />
-      </BrowserRouter>
-    )
+   render(
+    <MemoryRouter initialEntries={['/']}>
+      <Navigation />
+    </MemoryRouter>
+  )
   }
 
   it('should render navigation with all links', () => {
