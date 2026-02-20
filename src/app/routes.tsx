@@ -1,29 +1,36 @@
 import { RouteObject } from 'react-router-dom'
+import {
+  HomePage,
+  BlogPage,
+  LearnPage,
+  ToolsPage,
+  TemplatesPage,
+  CaseStudiesPage,
+} from '../features/pages'
 
-// Placeholder routes to be implemented in Feature 001 routing task
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <div>Home</div>,
-  },
-  {
-    path: '/learn',
-    element: <div>Learn SDD</div>,
-  },
-  {
-    path: '/tools',
-    element: <div>Tools</div>,
-  },
-  {
-    path: '/templates',
-    element: <div>Templates</div>,
-  },
-  {
-    path: '/case-studies',
-    element: <div>Case Studies</div>,
+    element: <HomePage />,
   },
   {
     path: '/blog',
-    element: <div>Blog</div>,
+    element: <BlogPage />,
+  },
+  {
+    path: '/learn',
+    element: <LearnPage />,
+  },
+  {
+    path: '/tools',
+    element: <ToolsPage />,
+  },
+  {
+    path: '/templates',
+    element: <TemplatesPage />,
+  },
+  {
+    path: '/case-studies',
+    element: <CaseStudiesPage />,
   },
 ]
