@@ -1,50 +1,92 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Project Constitution
+AI & Spec-Driven Development Website
 
-## Core Principles
+## 1. Source of Truth
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+Specifications are the single source of truth.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+If code and spec diverge:
+1. Update the spec first.
+2. Regenerate or modify code to match the spec.
+3. Do not patch code without corresponding spec updates.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+---
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+## 2. Spec Before Code
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+No implementation work begins without:
+- spec.md (what + why)
+- plan.md (architecture + tradeoffs)
+- tasks.md (small executable tasks)
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+All generated code must map to a specific task.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+---
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## 3. Controlled Code Generation
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+All files are generated via Codex unless:
+- The change is <5 lines and mechanical
+- The spec explicitly allows manual edit
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Manual edits must be documented in the related task.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+---
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+## 4. Simplicity Bias
+
+Prefer:
+- Static over dynamic
+- Boring over clever
+- Fewer dependencies over many
+- Explicit structure over magic
+
+If a feature can be solved with markdown and layout composition, do not introduce runtime logic.
+
+---
+
+## 5. Definition of Done
+
+A task is complete only when:
+- Code compiles / builds successfully
+- Page renders correctly
+- Accessibility basics are satisfied
+- Performance is not degraded
+- Relevant documentation is updated
+
+---
+
+## 6. Architectural Stability
+
+Do not refactor across boundaries unless:
+- Required by the spec
+- A new spec explicitly authorizes the refactor
+
+Avoid opportunistic improvements.
+
+---
+
+## 7. Transparency
+
+All feature work must:
+- Reference its feature ID
+- Update tasks.md as tasks are completed
+- Summarize changes and affected files
+
+---
+
+## 8. Publishing Discipline
+
+Content is structured and versionable.
+No ad-hoc content outside the defined information architecture.
+
+---
+
+## 9. Long-Term Intent
+
+This site is:
+- A teaching tool for Spec-Driven Development
+- A living demonstration of SDD in action
+- A template others could fork
+
+Engineering rigor is part of the product.
