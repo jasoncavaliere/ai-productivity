@@ -1,0 +1,5 @@
+[projects.'\\?\C:\Users\jason\Documents\GitHub\ai-productivity']
+trust_level = "trusted"
+
+[windows]
+sandbox = "elevated"
