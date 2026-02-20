@@ -1,12 +1,20 @@
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom'
+import { AppLayout } from '../layout/AppLayout'
+import { routes } from './routes'
+
+function AppRoutes() {
+  const routeElements = useRoutes(routes)
+  return (
+    <AppLayout>
+      {routeElements}
+    </AppLayout>
+  )
+}
 
 function App() {
   return (
     <Router>
-      <div className="app">
-        <h1>AI + Spec-Driven Development</h1>
-        <p>Project foundation initialized.</p>
-      </div>
+      <AppRoutes />
     </Router>
   )
 }
