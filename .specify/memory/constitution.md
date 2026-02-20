@@ -92,9 +92,11 @@ This site is:
 
 Engineering rigor is part of the product.
 
-## 10. Testing Discipline
+## Testing Strategy
 
-- All business logic must have unit tests.
-- No task is considered complete without tests where applicable.
-- Tests must run in CI.
-- UI-only placeholders may defer tests, but service logic may not.
+- Vitest for unit testing
+- React Testing Library for component testing
+- Tests colocated with source files
+- All tests must pass in CI before deployment
+
+CI must fail on test failure.
