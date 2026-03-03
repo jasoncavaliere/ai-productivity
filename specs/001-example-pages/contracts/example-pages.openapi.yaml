@@ -1,0 +1,243 @@
+openapi: 3.1.0
+info:
+  title: Example Pages Contract
+  version: 1.0.0
+  description: >
+    Read-oriented contract for the examples library, example detail pages,
+    and outbound launch resolution used by the Example Pages feature.
+servers:
+  - url: https://example.local
+paths:
+  /examples:
+    get:
+      summary: List published examples
+      description: Returns the public examples catalog with optional free-text filtering.
+      parameters:
+        - in: query
+          name: q
+          required: false
+          schema:
+            type: string
+          description: Free-text filter applied to title, description, and tags.
+      responses:
+        '200':
+          description: Published examples matching the filter.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - items
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExampleListItem'
+  /examples/{slug}:
+    get:
+      summary: Get example detail
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Published example detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleDetail'
+        '404':
+          description: Example not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+  /providers:
+    get:
+      summary: List available LLM providers
+      responses:
+        '200':
+          description: Providers that can be shown in the UI.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - items
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Provider'
+  /launch-links:
+    post:
+      summary: Resolve an outbound launch link
+      description: >
+        Resolves the selected provider and wildcard values into a launchable
+        prompt payload and outbound URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaunchLinkRequest'
+      responses:
+        '200':
+          description: Launch link resolved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchLinkResponse'
+        '400':
+          description: Request is invalid or contains unresolved variables.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Example or provider not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ExampleListItem:
+      type: object
+      required:
+        - slug
+        - name
+        - shortDescription
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        shortDescription:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    ExampleDetail:
+      type: object
+      required:
+        - slug
+        - name
+        - longDescription
+        - promptTemplate
+        - variables
+        - supportedProviders
+        - defaultProviderId
+      properties:
+        slug:
+          type: string
+        name:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        promptTemplate:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromptVariable'
+        supportedProviders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Provider'
+        defaultProviderId:
+          type: string
+    PromptVariable:
+      type: object
+      required:
+        - id
+        - label
+        - defaultValue
+        - required
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        defaultValue:
+          type: string
+        required:
+          type: boolean
+        exampleValue:
+          type: string
+    Provider:
+      type: object
+      required:
+        - id
+        - name
+        - availabilityStatus
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        availabilityStatus:
+          type: string
+          enum:
+            - enabled
+            - disabled
+        supportsPromptPrefill:
+          type: boolean
+        notes:
+          type: string
+    LaunchLinkRequest:
+      type: object
+      required:
+        - exampleSlug
+        - providerId
+        - variableValues
+      properties:
+        exampleSlug:
+          type: string
+        providerId:
+          type: string
+        variableValues:
+          type: object
+          additionalProperties:
+            type: string
+    LaunchLinkResponse:
+      type: object
+      required:
+        - launchUrl
+        - resolvedPrompt
+      properties:
+        launchUrl:
+          type: string
+          format: uri
+        resolvedPrompt:
+          type: string
+    NotFoundResponse:
+      type: object
+      required:
+        - message
+        - recoveryPath
+      properties:
+        message:
+          type: string
+        recoveryPath:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string

@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { Navigation } from './Navigation'
 
@@ -43,7 +42,7 @@ describe('Navigation Component', () => {
     renderNavigation()
     
     const examplesLink = screen.getByText('Examples')
-    expect(examplesLink).toHaveAttribute('href', '/tools')
+    expect(examplesLink).toHaveAttribute('href', '/examples')
   })
 
   it('should have navigation toggle button on mobile', () => {
@@ -61,7 +60,6 @@ describe('Navigation Component', () => {
   })
 
   it('should toggle menu when clicking toggle button', async () => {
-    const user = userEvent.setup()
     renderNavigation()
     
     const toggleButton = screen.getByLabelText('Toggle navigation menu')
@@ -69,23 +67,22 @@ describe('Navigation Component', () => {
     
     expect(toggleButton).toHaveAttribute('aria-expanded', 'false')
     
-    await user.click(toggleButton)
+    fireEvent.click(toggleButton)
     expect(toggleButton).toHaveAttribute('aria-expanded', 'true')
     expect(navMenu).toHaveClass('open')
     
-    await user.click(toggleButton)
+    fireEvent.click(toggleButton)
     expect(toggleButton).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('should close menu when clicking a link', async () => {
-    const user = userEvent.setup()
     renderNavigation()
     
     const toggleButton = screen.getByLabelText('Toggle navigation menu')
-    await user.click(toggleButton)
+    fireEvent.click(toggleButton)
     
     const blogLink = screen.getByText('Blog')
-    await user.click(blogLink)
+    fireEvent.click(blogLink)
     
     expect(toggleButton).toHaveAttribute('aria-expanded', 'false')
   })

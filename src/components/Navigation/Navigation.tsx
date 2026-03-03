@@ -10,7 +10,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Blog', path: '/blog' },
-  { label: 'Examples', path: '/tools' },
+  { label: 'Examples', path: '/examples' },
   { label: 'Learn', path: '/learn' },
   { label: 'Templates', path: '/templates' },
   { label: 'Case Studies', path: '/case-studies' },
