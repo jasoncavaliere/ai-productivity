@@ -7,6 +7,7 @@ import {
   TemplatesPage,
   CaseStudiesPage,
 } from '../features/pages'
+import { ExampleDetailPage, ExamplesPage } from '../features/examples'
 
 export const routes: RouteObject[] = [
   {
@@ -24,6 +25,14 @@ export const routes: RouteObject[] = [
   {
     path: '/tools',
     element: <ToolsPage />,
+  },
+  {
+    path: '/examples',
+    element: <ExamplesPage />,
+  },
+  {
+    path: '/examples/:slug',
+    element: <ExampleDetailPage />,
   },
   {
     path: '/templates',

@@ -1,3 +1,5 @@
+import { ExamplesPage } from '../examples'
+
 export const HomePage = () => (
   <div>
     <h1>Welcome to AI Productivity</h1>
@@ -20,10 +22,7 @@ export const LearnPage = () => (
 )
 
 export const ToolsPage = () => (
-  <div>
-    <h1>Examples & Tools</h1>
-    <p>Explore AI tools and code examples.</p>
-  </div>
+  <ExamplesPage />
 )
 
 export const TemplatesPage = () => (
